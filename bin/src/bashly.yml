@@ -5,6 +5,12 @@ version: 0.1.0
 environment_variables: []
 
 commands:
+- name: docs
+  help: Refresh all terraform docs
+
+  examples:
+  - tf-helper docs
+
 - name: clean
   help: Clean up tfplan files in all root modules
 
