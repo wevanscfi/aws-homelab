@@ -228,13 +228,20 @@ tf_helper_root_module_init_usage() {
   fi
 
   printf "%s\n" "Usage:"
-  printf "  tf-helper root-module init NAME\n"
+  printf "  tf-helper root-module init NAME [OPTIONS]\n"
   printf "  tf-helper root-module init --help | -h\n"
   echo
 
   # :command.long_usage
   if [[ -n $long_usage ]]; then
     printf "%s\n" "Options:"
+
+    # :command.usage_flags
+    # :flag.usage
+    printf "  %s\n" "--providers, -p PROVIDERS"
+    printf "    A comma delinetated list of providers to link\n"
+    printf "    Default: aws\n"
+    echo
 
     # :command.usage_fixed_flags
     printf "  %s\n" "--help, -h"
@@ -252,6 +259,7 @@ tf_helper_root_module_init_usage() {
     # :command.usage_examples
     printf "%s\n" "Examples:"
     printf "  tf-helper root-module init cluster_services\n"
+    printf "  tf-helper root-module init rds_instances -p aws,honeycomb\n"
     echo
 
   fi
@@ -425,10 +433,16 @@ tf_helper_root_module_init_command() {
   template=${parent_path}/../terraform/templates/root-module
   dest=${parent_path}/../terraform/root-modules/${args[name]}
 
-  echo "Creating a new terraform root module at ${dest} from template"
+  echo "Creating a new terraform root module: ${args[name]}"
 
   cp -a ${template} ${dest}
   sed -i "" "s/<module_name>/${args[name]}/g" $dest/backend.tf
+
+  for provider in $(echo ${args[--providers]} | sed "s/,/ /g"); do
+    echo "Using provider ${provider} in new module"
+    cd $dest
+    ln -s ../../providers/${provider}.tf ${provider}.tf
+  done
 
 }
 
@@ -817,6 +831,20 @@ tf_helper_root_module_init_parse_requirements() {
   while [[ $# -gt 0 ]]; do
     key="$1"
     case "$key" in
+      # :flag.case
+      --providers | -p)
+
+        # :flag.case_arg
+        if [[ -n ${2+x} ]]; then
+
+          args['--providers']="$2"
+          shift
+          shift
+        else
+          printf "%s\n" "--providers requires an argument: --providers, -p PROVIDERS" >&2
+          exit 1
+        fi
+        ;;
 
       -?*)
         printf "invalid option: %s\n" "$key" >&2
@@ -842,9 +870,12 @@ tf_helper_root_module_init_parse_requirements() {
 
   # :command.required_args_filter
   if [[ -z ${args['name']+x} ]]; then
-    printf "missing required argument: NAME\nusage: tf-helper root-module init NAME\n" >&2
+    printf "missing required argument: NAME\nusage: tf-helper root-module init NAME [OPTIONS]\n" >&2
     exit 1
   fi
+
+  # :command.default_assignments
+  [[ -n ${args['--providers']:-} ]] || args['--providers']="aws"
 
 }
 

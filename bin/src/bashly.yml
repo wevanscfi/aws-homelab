@@ -49,8 +49,17 @@ commands:
         required: true
         help: Root module name
 
+      flags:
+      - long: --providers
+        short: -p
+        arg: providers
+        help: A comma delinetated list of providers to link
+        required: false
+        default: aws
+
       examples:
       - tf-helper root-module init cluster_services
+      - tf-helper root-module init rds_instances -p aws,honeycomb
 
 - name: shared-module
   help: Commands for interacting with shared modules
