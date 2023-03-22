@@ -7,7 +7,8 @@ module "tags" {
 }
 
 module "eks" {
-  source = "terraform-aws-modules/eks/aws"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "19.10.1"
 
   cluster_name    = var.name
   cluster_version = var.cluster_version
@@ -34,7 +35,8 @@ module "eks" {
 }
 
 module "vpc_cni_irsa" {
-  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "19.10.1"
 
   role_name             = "vpc_cni"
   attach_vpc_cni_policy = true
@@ -51,7 +53,8 @@ module "vpc_cni_irsa" {
 }
 
 module "karpenter_irsa" {
-  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "19.10.1"
 
   role_name                          = "karpenter_controller"
   attach_karpenter_controller_policy = true
