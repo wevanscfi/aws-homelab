@@ -34,7 +34,11 @@ tf_helper_usage() {
   echo
   # :command.usage_commands
   printf "%s\n" "Commands:"
-  printf "  %s   Commands for interacting with root modules\n" "root-module"
+  printf "  %s   Run terraform init in a root module\n" "init         "
+  printf "  %s   Run terraform plan in a root module\n" "plan         "
+  printf "  %s   Run terraform apply in a root module\n" "apply        "
+  printf "  %s   Commands for interacting with root modules\n" "root-module  "
+  printf "  %s   Commands for interacting with shared modules\n" "shared-module"
   echo
 
   # :command.long_usage
@@ -47,6 +51,132 @@ tf_helper_usage() {
     echo
     printf "  %s\n" "--version, -v"
     printf "    Show version number\n"
+    echo
+
+  fi
+}
+
+# :command.usage
+tf_helper_init_usage() {
+  if [[ -n $long_usage ]]; then
+    printf "tf-helper init - Run terraform init in a root module\n"
+    echo
+
+  else
+    printf "tf-helper init - Run terraform init in a root module\n"
+    echo
+
+  fi
+
+  printf "%s\n" "Usage:"
+  printf "  tf-helper init NAME\n"
+  printf "  tf-helper init --help | -h\n"
+  echo
+
+  # :command.long_usage
+  if [[ -n $long_usage ]]; then
+    printf "%s\n" "Options:"
+
+    # :command.usage_fixed_flags
+    printf "  %s\n" "--help, -h"
+    printf "    Show this help\n"
+    echo
+
+    # :command.usage_args
+    printf "%s\n" "Arguments:"
+
+    # :argument.usage
+    printf "  %s\n" "NAME"
+    printf "    Root module name\n"
+    echo
+
+    # :command.usage_examples
+    printf "%s\n" "Examples:"
+    printf "  tf-helper init cluster_services\n"
+    echo
+
+  fi
+}
+
+# :command.usage
+tf_helper_plan_usage() {
+  if [[ -n $long_usage ]]; then
+    printf "tf-helper plan - Run terraform plan in a root module\n"
+    echo
+
+  else
+    printf "tf-helper plan - Run terraform plan in a root module\n"
+    echo
+
+  fi
+
+  printf "%s\n" "Usage:"
+  printf "  tf-helper plan NAME\n"
+  printf "  tf-helper plan --help | -h\n"
+  echo
+
+  # :command.long_usage
+  if [[ -n $long_usage ]]; then
+    printf "%s\n" "Options:"
+
+    # :command.usage_fixed_flags
+    printf "  %s\n" "--help, -h"
+    printf "    Show this help\n"
+    echo
+
+    # :command.usage_args
+    printf "%s\n" "Arguments:"
+
+    # :argument.usage
+    printf "  %s\n" "NAME"
+    printf "    Root module name\n"
+    echo
+
+    # :command.usage_examples
+    printf "%s\n" "Examples:"
+    printf "  tf-helper plan cluster_services\n"
+    echo
+
+  fi
+}
+
+# :command.usage
+tf_helper_apply_usage() {
+  if [[ -n $long_usage ]]; then
+    printf "tf-helper apply - Run terraform apply in a root module\n"
+    echo
+
+  else
+    printf "tf-helper apply - Run terraform apply in a root module\n"
+    echo
+
+  fi
+
+  printf "%s\n" "Usage:"
+  printf "  tf-helper apply NAME\n"
+  printf "  tf-helper apply --help | -h\n"
+  echo
+
+  # :command.long_usage
+  if [[ -n $long_usage ]]; then
+    printf "%s\n" "Options:"
+
+    # :command.usage_fixed_flags
+    printf "  %s\n" "--help, -h"
+    printf "    Show this help\n"
+    echo
+
+    # :command.usage_args
+    printf "%s\n" "Arguments:"
+
+    # :argument.usage
+    printf "  %s\n" "NAME"
+    printf "    Root module name\n"
+    echo
+
+    # :command.usage_examples
+    printf "%s\n" "Examples:"
+    printf "  tf-helper plan cluster_services\n"
     echo
 
   fi
@@ -98,19 +228,13 @@ tf_helper_root_module_init_usage() {
   fi
 
   printf "%s\n" "Usage:"
-  printf "  tf-helper root-module init NAME [OPTIONS]\n"
+  printf "  tf-helper root-module init NAME\n"
   printf "  tf-helper root-module init --help | -h\n"
   echo
 
   # :command.long_usage
   if [[ -n $long_usage ]]; then
     printf "%s\n" "Options:"
-
-    # :command.usage_flags
-    # :flag.usage
-    printf "  %s\n" "--do-not-use-remote-state, -d"
-    printf "    Do not utilize remote state\n"
-    echo
 
     # :command.usage_fixed_flags
     printf "  %s\n" "--help, -h"
@@ -127,7 +251,82 @@ tf_helper_root_module_init_usage() {
 
     # :command.usage_examples
     printf "%s\n" "Examples:"
-    printf "  tf-helper root-module init clusters\n"
+    printf "  tf-helper root-module init cluster_services\n"
+    echo
+
+  fi
+}
+
+# :command.usage
+tf_helper_shared_module_usage() {
+  if [[ -n $long_usage ]]; then
+    printf "tf-helper shared-module - Commands for interacting with shared modules\n"
+    echo
+
+  else
+    printf "tf-helper shared-module - Commands for interacting with shared modules\n"
+    echo
+
+  fi
+
+  printf "%s\n" "Usage:"
+  printf "  tf-helper shared-module COMMAND\n"
+  printf "  tf-helper shared-module [COMMAND] --help | -h\n"
+  echo
+  # :command.usage_commands
+  printf "%s\n" "Commands:"
+  printf "  %s   Create a new shared module\n" "init"
+  echo
+
+  # :command.long_usage
+  if [[ -n $long_usage ]]; then
+    printf "%s\n" "Options:"
+
+    # :command.usage_fixed_flags
+    printf "  %s\n" "--help, -h"
+    printf "    Show this help\n"
+    echo
+
+  fi
+}
+
+# :command.usage
+tf_helper_shared_module_init_usage() {
+  if [[ -n $long_usage ]]; then
+    printf "tf-helper shared-module init - Create a new shared module\n"
+    echo
+
+  else
+    printf "tf-helper shared-module init - Create a new shared module\n"
+    echo
+
+  fi
+
+  printf "%s\n" "Usage:"
+  printf "  tf-helper shared-module init NAME\n"
+  printf "  tf-helper shared-module init --help | -h\n"
+  echo
+
+  # :command.long_usage
+  if [[ -n $long_usage ]]; then
+    printf "%s\n" "Options:"
+
+    # :command.usage_fixed_flags
+    printf "  %s\n" "--help, -h"
+    printf "    Show this help\n"
+    echo
+
+    # :command.usage_args
+    printf "%s\n" "Arguments:"
+
+    # :argument.usage
+    printf "  %s\n" "NAME"
+    printf "    Module name\n"
+    echo
+
+    # :command.usage_examples
+    printf "%s\n" "Examples:"
+    printf "  tf-helper shared-module init s3\n"
     echo
 
   fi
@@ -186,13 +385,58 @@ inspect_args() {
 }
 
 # :command.command_functions
+# :command.function
+tf_helper_init_command() {
+  # src/init_command.sh
+  dest=terraform/root-modules/${args[name]}
+
+  cd $dest
+  terraform init -upgrade
+
+}
+
+# :command.function
+tf_helper_plan_command() {
+  # src/plan_command.sh
+  dest=terraform/root-modules/${args[name]}
+
+  cd $dest
+  terraform plan -out=tfplan
+
+}
+
+# :command.function
+tf_helper_apply_command() {
+  # src/apply_command.sh
+  dest=terraform/root-modules/${args[name]}
+
+  cd $dest
+  terraform apply tfplan
+
+}
 
 # :command.function
 tf_helper_root_module_init_command() {
   # src/root_module_init_command.sh
-  inspect_args
+  template=terraform/templates/root-module
+  dest=terraform/root-modules/${args[name]}
 
-  echo "creating a new tf-modules from template"
+  echo "Creating a new terraform root module at ${dest} from template"
+
+  cp -a ${template} ${dest}
+  sed -i "" "s/<module_name>/${args[name]}/g" $dest/backend.tf
+
+}
+
+# :command.function
+tf_helper_shared_module_init_command() {
+  # src/shared_module_init_command.sh
+  template=terraform/templates/shared-module
+  dest=terraform/shared-modules/${args[name]}
+
+  echo "Creating a new terraform shared module at ${dest} from template"
+
+  cp -a ${template} ${dest}
 
 }
 
@@ -227,10 +471,38 @@ parse_requirements() {
   case $action in
     -*) ;;
 
+    init)
+      action="init"
+      shift
+      tf_helper_init_parse_requirements "$@"
+      shift $#
+      ;;
+
+    plan)
+      action="plan"
+      shift
+      tf_helper_plan_parse_requirements "$@"
+      shift $#
+      ;;
+
+    apply)
+      action="apply"
+      shift
+      tf_helper_apply_parse_requirements "$@"
+      shift $#
+      ;;
+
     root-module)
       action="root-module"
       shift
       tf_helper_root_module_parse_requirements "$@"
+      shift $#
+      ;;
+
+    shared-module)
+      action="shared-module"
+      shift
+      tf_helper_shared_module_parse_requirements "$@"
       shift $#
       ;;
 
@@ -267,6 +539,180 @@ parse_requirements() {
 
     esac
   done
+
+}
+
+# :command.parse_requirements
+tf_helper_init_parse_requirements() {
+  # :command.fixed_flags_filter
+  while [[ $# -gt 0 ]]; do
+    case "${1:-}" in
+      --help | -h)
+        long_usage=yes
+        tf_helper_init_usage
+        exit
+        ;;
+
+      *)
+        break
+        ;;
+
+    esac
+  done
+
+  # :command.dependencies_filter
+
+  # :command.command_filter
+  action="init"
+
+  # :command.parse_requirements_while
+  while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+
+      -?*)
+        printf "invalid option: %s\n" "$key" >&2
+        exit 1
+        ;;
+
+      *)
+        # :command.parse_requirements_case
+        # :command.parse_requirements_case_simple
+        if [[ -z ${args['name']+x} ]]; then
+
+          args['name']=$1
+          shift
+        else
+          printf "invalid argument: %s\n" "$key" >&2
+          exit 1
+        fi
+
+        ;;
+
+    esac
+  done
+
+  # :command.required_args_filter
+  if [[ -z ${args['name']+x} ]]; then
+    printf "missing required argument: NAME\nusage: tf-helper init NAME\n" >&2
+    exit 1
+  fi
+
+}
+
+# :command.parse_requirements
+tf_helper_plan_parse_requirements() {
+  # :command.fixed_flags_filter
+  while [[ $# -gt 0 ]]; do
+    case "${1:-}" in
+      --help | -h)
+        long_usage=yes
+        tf_helper_plan_usage
+        exit
+        ;;
+
+      *)
+        break
+        ;;
+
+    esac
+  done
+
+  # :command.dependencies_filter
+
+  # :command.command_filter
+  action="plan"
+
+  # :command.parse_requirements_while
+  while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+
+      -?*)
+        printf "invalid option: %s\n" "$key" >&2
+        exit 1
+        ;;
+
+      *)
+        # :command.parse_requirements_case
+        # :command.parse_requirements_case_simple
+        if [[ -z ${args['name']+x} ]]; then
+
+          args['name']=$1
+          shift
+        else
+          printf "invalid argument: %s\n" "$key" >&2
+          exit 1
+        fi
+
+        ;;
+
+    esac
+  done
+
+  # :command.required_args_filter
+  if [[ -z ${args['name']+x} ]]; then
+    printf "missing required argument: NAME\nusage: tf-helper plan NAME\n" >&2
+    exit 1
+  fi
+
+}
+
+# :command.parse_requirements
+tf_helper_apply_parse_requirements() {
+  # :command.fixed_flags_filter
+  while [[ $# -gt 0 ]]; do
+    case "${1:-}" in
+      --help | -h)
+        long_usage=yes
+        tf_helper_apply_usage
+        exit
+        ;;
+
+      *)
+        break
+        ;;
+
+    esac
+  done
+
+  # :command.dependencies_filter
+
+  # :command.command_filter
+  action="apply"
+
+  # :command.parse_requirements_while
+  while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+
+      -?*)
+        printf "invalid option: %s\n" "$key" >&2
+        exit 1
+        ;;
+
+      *)
+        # :command.parse_requirements_case
+        # :command.parse_requirements_case_simple
+        if [[ -z ${args['name']+x} ]]; then
+
+          args['name']=$1
+          shift
+        else
+          printf "invalid argument: %s\n" "$key" >&2
+          exit 1
+        fi
+
+        ;;
+
+    esac
+  done
+
+  # :command.required_args_filter
+  if [[ -z ${args['name']+x} ]]; then
+    printf "missing required argument: NAME\nusage: tf-helper apply NAME\n" >&2
+    exit 1
+  fi
 
 }
 
@@ -366,13 +812,6 @@ tf_helper_root_module_init_parse_requirements() {
   while [[ $# -gt 0 ]]; do
     key="$1"
     case "$key" in
-      # :flag.case
-      --do-not-use-remote-state | -d)
-
-        # :flag.case_no_arg
-        args['--do-not-use-remote-state']=1
-        shift
-        ;;
 
       -?*)
         printf "invalid option: %s\n" "$key" >&2
@@ -398,7 +837,134 @@ tf_helper_root_module_init_parse_requirements() {
 
   # :command.required_args_filter
   if [[ -z ${args['name']+x} ]]; then
-    printf "missing required argument: NAME\nusage: tf-helper root-module init NAME [OPTIONS]\n" >&2
+    printf "missing required argument: NAME\nusage: tf-helper root-module init NAME\n" >&2
+    exit 1
+  fi
+
+}
+
+# :command.parse_requirements
+tf_helper_shared_module_parse_requirements() {
+  # :command.fixed_flags_filter
+  while [[ $# -gt 0 ]]; do
+    case "${1:-}" in
+      --help | -h)
+        long_usage=yes
+        tf_helper_shared_module_usage
+        exit
+        ;;
+
+      *)
+        break
+        ;;
+
+    esac
+  done
+
+  # :command.dependencies_filter
+
+  # :command.command_filter
+  action=${1:-}
+
+  case $action in
+    -*) ;;
+
+    init)
+      action="init"
+      shift
+      tf_helper_shared_module_init_parse_requirements "$@"
+      shift $#
+      ;;
+
+    # :command.command_fallback
+    "")
+      tf_helper_shared_module_usage >&2
+      exit 1
+      ;;
+
+    *)
+      printf "invalid command: %s\n" "$action" >&2
+      exit 1
+      ;;
+
+  esac
+
+  # :command.parse_requirements_while
+  while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+
+      -?*)
+        printf "invalid option: %s\n" "$key" >&2
+        exit 1
+        ;;
+
+      *)
+        # :command.parse_requirements_case
+        # :command.parse_requirements_case_simple
+        printf "invalid argument: %s\n" "$key" >&2
+        exit 1
+
+        ;;
+
+    esac
+  done
+
+}
+
+# :command.parse_requirements
+tf_helper_shared_module_init_parse_requirements() {
+  # :command.fixed_flags_filter
+  while [[ $# -gt 0 ]]; do
+    case "${1:-}" in
+      --help | -h)
+        long_usage=yes
+        tf_helper_shared_module_init_usage
+        exit
+        ;;
+
+      *)
+        break
+        ;;
+
+    esac
+  done
+
+  # :command.dependencies_filter
+
+  # :command.command_filter
+  action="shared-module init"
+
+  # :command.parse_requirements_while
+  while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+
+      -?*)
+        printf "invalid option: %s\n" "$key" >&2
+        exit 1
+        ;;
+
+      *)
+        # :command.parse_requirements_case
+        # :command.parse_requirements_case_simple
+        if [[ -z ${args['name']+x} ]]; then
+
+          args['name']=$1
+          shift
+        else
+          printf "invalid argument: %s\n" "$key" >&2
+          exit 1
+        fi
+
+        ;;
+
+    esac
+  done
+
+  # :command.required_args_filter
+  if [[ -z ${args['name']+x} ]]; then
+    printf "missing required argument: NAME\nusage: tf-helper shared-module init NAME\n" >&2
     exit 1
   fi
 
@@ -424,6 +990,33 @@ run() {
   parse_requirements "${input[@]}"
 
   case "$action" in
+    "init")
+      if [[ ${args['--help']:-} ]]; then
+        long_usage=yes
+        tf_helper_init_usage
+      else
+        tf_helper_init_command
+      fi
+      ;;
+
+    "plan")
+      if [[ ${args['--help']:-} ]]; then
+        long_usage=yes
+        tf_helper_plan_usage
+      else
+        tf_helper_plan_command
+      fi
+      ;;
+
+    "apply")
+      if [[ ${args['--help']:-} ]]; then
+        long_usage=yes
+        tf_helper_apply_usage
+      else
+        tf_helper_apply_command
+      fi
+      ;;
+
     "root-module")
       if [[ ${args['--help']:-} ]]; then
         long_usage=yes
@@ -439,6 +1032,24 @@ run() {
         tf_helper_root_module_init_usage
       else
         tf_helper_root_module_init_command
+      fi
+      ;;
+
+    "shared-module")
+      if [[ ${args['--help']:-} ]]; then
+        long_usage=yes
+        tf_helper_shared_module_usage
+      else
+        tf_helper_shared_module_command
+      fi
+      ;;
+
+    "shared-module init")
+      if [[ ${args['--help']:-} ]]; then
+        long_usage=yes
+        tf_helper_shared_module_init_usage
+      else
+        tf_helper_shared_module_init_command
       fi
       ;;
 

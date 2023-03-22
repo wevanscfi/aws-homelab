@@ -1,4 +1,8 @@
-inspect_args
+template=terraform/templates/root-module
+dest=terraform/root-modules/${args[name]}
 
-echo "creating a new terraform root module from template"
+echo "Creating a new terraform root module at ${dest} from template"
+
+cp -a ${template} ${dest}
+sed -i "" "s/<module_name>/${args[name]}/g" $dest/backend.tf
 

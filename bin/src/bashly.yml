@@ -5,6 +5,39 @@ version: 0.1.0
 environment_variables: []
 
 commands:
+- name: init
+  help: Run terraform init in a root module
+
+  args:
+  - name: name
+    required: true
+    help: Root module name
+
+  examples:
+  - tf-helper init cluster_services
+
+- name: plan
+  help: Run terraform plan in a root module
+
+  args:
+  - name: name
+    required: true
+    help: Root module name
+
+  examples:
+  - tf-helper plan cluster_services
+
+- name: apply
+  help: Run terraform apply in a root module
+
+  args:
+  - name: name
+    required: true
+    help: Root module name
+
+  examples:
+  - tf-helper plan cluster_services
+
 - name: root-module
   help: Commands for interacting with root modules
   commands:
@@ -16,11 +49,21 @@ commands:
         required: true
         help: Root module name
 
-      flags:
-      - long: --do-not-use-remote-state
-        short: -d
-        help: Do not utilize remote state
+      examples:
+      - tf-helper root-module init cluster_services
+
+- name: shared-module
+  help: Commands for interacting with shared modules
+  commands:
+    - name: init
+      help: Create a new shared module
+
+      args:
+      - name: name
+        required: true
+        help: Module name
 
       examples:
-      - tf-helper root-module init clusters
+      - tf-helper shared-module init s3
+
 
