@@ -66,3 +66,51 @@ Resulting in resources that are tagged like this
     }
 ```
 
+## tf-helper bin
+This helper script makes working with multiple root modules a little easier
+
+### Installation
+You will need bash 4 or higher
+
+`brew install bash`
+
+symlink `/bin/tf-helper` into your path or add the repo bin directory to your path
+
+### Usage
+```
+$ tf-helper 
+tf-helper - Terraform Helper Functions
+
+Usage:
+  tf-helper COMMAND
+  tf-helper [COMMAND] --help | -h
+  tf-helper --version | -v
+
+Commands:
+  clean           Clean up tfplan files in all root modules
+  init            Run terraform init in a root module
+  plan            Run terraform plan in a root module
+  apply           Run terraform apply in a root module
+  root-module     Commands for interacting with root modules
+  shared-module   Commands for interacting with shared modules
+
+tf-helper root-module - Commands for interacting with root modules
+
+Usage:
+  tf-helper root-module COMMAND
+  tf-helper root-module [COMMAND] --help | -h
+
+Commands:
+  init   Create a new root module
+
+tf-helper shared-module - Commands for interacting with shared modules
+
+Usage:
+  tf-helper shared-module COMMAND
+  tf-helper shared-module [COMMAND] --help | -h
+
+Commands:
+  init   Create a new shared module
+```
+
+
