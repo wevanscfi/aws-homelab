@@ -34,6 +34,7 @@ tf_helper_usage() {
   echo
   # :command.usage_commands
   printf "%s\n" "Commands:"
+  printf "  %s   Clean up tfplan files in all root modules\n" "clean        "
   printf "  %s   Run terraform init in a root module\n" "init         "
   printf "  %s   Run terraform plan in a root module\n" "plan         "
   printf "  %s   Run terraform apply in a root module\n" "apply        "
@@ -51,6 +52,40 @@ tf_helper_usage() {
     echo
     printf "  %s\n" "--version, -v"
     printf "    Show version number\n"
+    echo
+
+  fi
+}
+
+# :command.usage
+tf_helper_clean_usage() {
+  if [[ -n $long_usage ]]; then
+    printf "tf-helper clean - Clean up tfplan files in all root modules\n"
+    echo
+
+  else
+    printf "tf-helper clean - Clean up tfplan files in all root modules\n"
+    echo
+
+  fi
+
+  printf "%s\n" "Usage:"
+  printf "  tf-helper clean\n"
+  printf "  tf-helper clean --help | -h\n"
+  echo
+
+  # :command.long_usage
+  if [[ -n $long_usage ]]; then
+    printf "%s\n" "Options:"
+
+    # :command.usage_fixed_flags
+    printf "  %s\n" "--help, -h"
+    printf "    Show this help\n"
+    echo
+
+    # :command.usage_examples
+    printf "%s\n" "Examples:"
+    printf "  tf-helper clean\n"
     echo
 
   fi
@@ -394,6 +429,22 @@ inspect_args() {
 
 # :command.command_functions
 # :command.function
+tf_helper_clean_command() {
+  # src/clean_command.sh
+  parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+  dest=${parent_path}/../terraform/root-modules
+
+  for dir in ${dest}/*
+  do
+    test -d "$dir" || continue
+    cd ${dir}
+    echo $PWD
+    rm -f tfplan
+  done
+
+}
+
+# :command.function
 tf_helper_init_command() {
   # src/init_command.sh
   parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
@@ -422,7 +473,7 @@ tf_helper_apply_command() {
   dest=${parent_path}/../terraform/root-modules/${args[name]}
 
   cd $dest
-  terraform apply tfplan
+  terraform apply tfplan && rm tfplan
 
 }
 
@@ -490,6 +541,13 @@ parse_requirements() {
   case $action in
     -*) ;;
 
+    clean)
+      action="clean"
+      shift
+      tf_helper_clean_parse_requirements "$@"
+      shift $#
+      ;;
+
     init)
       action="init"
       shift
@@ -537,6 +595,52 @@ parse_requirements() {
       ;;
 
   esac
+
+  # :command.parse_requirements_while
+  while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+
+      -?*)
+        printf "invalid option: %s\n" "$key" >&2
+        exit 1
+        ;;
+
+      *)
+        # :command.parse_requirements_case
+        # :command.parse_requirements_case_simple
+        printf "invalid argument: %s\n" "$key" >&2
+        exit 1
+
+        ;;
+
+    esac
+  done
+
+}
+
+# :command.parse_requirements
+tf_helper_clean_parse_requirements() {
+  # :command.fixed_flags_filter
+  while [[ $# -gt 0 ]]; do
+    case "${1:-}" in
+      --help | -h)
+        long_usage=yes
+        tf_helper_clean_usage
+        exit
+        ;;
+
+      *)
+        break
+        ;;
+
+    esac
+  done
+
+  # :command.dependencies_filter
+
+  # :command.command_filter
+  action="clean"
 
   # :command.parse_requirements_while
   while [[ $# -gt 0 ]]; do
@@ -1026,6 +1130,15 @@ run() {
   parse_requirements "${input[@]}"
 
   case "$action" in
+    "clean")
+      if [[ ${args['--help']:-} ]]; then
+        long_usage=yes
+        tf_helper_clean_usage
+      else
+        tf_helper_clean_command
+      fi
+      ;;
+
     "init")
       if [[ ${args['--help']:-} ]]; then
         long_usage=yes
