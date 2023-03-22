@@ -1,0 +1,26 @@
+name: tf-helper
+help: Terraform Helper Functions
+version: 0.1.0
+
+environment_variables: []
+
+commands:
+- name: root-module
+  help: Commands for interacting with root modules
+  commands:
+    - name: init
+      help: Create a new root module
+
+      args:
+      - name: name
+        required: true
+        help: Root module name
+
+      flags:
+      - long: --do-not-use-remote-state
+        short: -d
+        help: Do not utilize remote state
+
+      examples:
+      - tf-helper root-module init clusters
+
