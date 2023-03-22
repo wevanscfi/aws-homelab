@@ -388,7 +388,8 @@ inspect_args() {
 # :command.function
 tf_helper_init_command() {
   # src/init_command.sh
-  dest=terraform/root-modules/${args[name]}
+  parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+  dest=${parent_path}/../terraform/root-modules/${args[name]}
 
   cd $dest
   terraform init -upgrade
@@ -398,7 +399,8 @@ tf_helper_init_command() {
 # :command.function
 tf_helper_plan_command() {
   # src/plan_command.sh
-  dest=terraform/root-modules/${args[name]}
+  parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+  dest=${parent_path}/../terraform/root-modules/${args[name]}
 
   cd $dest
   terraform plan -out=tfplan
@@ -408,7 +410,8 @@ tf_helper_plan_command() {
 # :command.function
 tf_helper_apply_command() {
   # src/apply_command.sh
-  dest=terraform/root-modules/${args[name]}
+  parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+  dest=${parent_path}/../terraform/root-modules/${args[name]}
 
   cd $dest
   terraform apply tfplan
@@ -418,8 +421,9 @@ tf_helper_apply_command() {
 # :command.function
 tf_helper_root_module_init_command() {
   # src/root_module_init_command.sh
-  template=terraform/templates/root-module
-  dest=terraform/root-modules/${args[name]}
+  parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+  template=${parent_path}/../terraform/templates/root-module
+  dest=${parent_path}/../terraform/root-modules/${args[name]}
 
   echo "Creating a new terraform root module at ${dest} from template"
 
@@ -431,8 +435,9 @@ tf_helper_root_module_init_command() {
 # :command.function
 tf_helper_shared_module_init_command() {
   # src/shared_module_init_command.sh
-  template=terraform/templates/shared-module
-  dest=terraform/shared-modules/${args[name]}
+  parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+  template=${parent_path}/../terraform/templates/shared-module
+  dest=${parent_path}/../terraform/shared-modules/${args[name]}
 
   echo "Creating a new terraform shared module at ${dest} from template"
 
