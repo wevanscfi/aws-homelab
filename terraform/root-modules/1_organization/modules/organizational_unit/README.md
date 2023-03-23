@@ -23,9 +23,9 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_accounts"></a> [accounts](#input\_accounts) | n/a | `any` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | n/a | `any` | n/a | yes |
-| <a name="input_org_id"></a> [org\_id](#input\_org\_id) | n/a | `any` | n/a | yes |
+| <a name="input_accounts"></a> [accounts](#input\_accounts) | A list of accounts to create within the organizational unit | `list(string)` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | The name of the organizational unit | `string` | n/a | yes |
+| <a name="input_org_id"></a> [org\_id](#input\_org\_id) | The top level organization id | `string` | n/a | yes |
 
 ## Outputs
 
