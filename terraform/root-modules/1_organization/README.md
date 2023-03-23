@@ -9,7 +9,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.56.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.59.0 |
 
 ## Modules
 
@@ -29,4 +29,7 @@ No inputs.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_core_accounts"></a> [core\_accounts](#output\_core\_accounts) | n/a |
+| <a name="output_platform_accounts"></a> [platform\_accounts](#output\_platform\_accounts) | n/a |

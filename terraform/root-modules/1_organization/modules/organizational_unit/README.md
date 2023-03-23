@@ -32,4 +32,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_accounts"></a> [accounts](#output\_accounts) | n/a |
-| <a name="output_organizational_unit"></a> [organizational\_unit](#output\_organizational\_unit) | n/a |
+| <a name="output_org_units"></a> [org\_units](#output\_org\_units) | n/a |

@@ -29,3 +29,11 @@ module "org_units" {
   accounts = each.value
 }
 
+output "core_accounts" {
+  value = module.org_units["core"].accounts
+}
+
+output "platform_accounts" {
+  value = module.org_units["platform"].accounts
+}
+
