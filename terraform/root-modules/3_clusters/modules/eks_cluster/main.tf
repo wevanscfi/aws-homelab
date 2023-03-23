@@ -10,7 +10,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.10.1"
 
-  cluster_name    = var.name
+  cluster_name    = "${var.name}-${module.tags.name_suffix}"
   cluster_version = var.cluster_version
 
   cluster_addons = {
@@ -36,9 +36,9 @@ module "eks" {
 
 module "vpc_cni_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "19.10.1"
+  version = "5.14.3"
 
-  role_name             = "vpc_cni"
+  role_name             = "vpc-cni-${var.name}-${module.tags.name_suffix}"
   attach_vpc_cni_policy = true
   vpc_cni_enable_ipv4   = true
 
@@ -54,9 +54,9 @@ module "vpc_cni_irsa" {
 
 module "karpenter_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "19.10.1"
+  version = "5.14.3"
 
-  role_name                          = "karpenter_controller"
+  role_name                          = "karpenter-${var.name}-${module.tags.name_suffix}"
   attach_karpenter_controller_policy = true
 
   karpenter_controller_cluster_id = module.eks.cluster_id

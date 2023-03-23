@@ -6,7 +6,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.19.0"
 
-  name = var.name
+  name = "${var.name}-${module.tags.name_suffix}"
   cidr = var.cidr
 
   azs = data.aws_availability_zones.available.names
