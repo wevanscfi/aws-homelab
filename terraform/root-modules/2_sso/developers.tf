@@ -33,27 +33,6 @@ data "aws_iam_policy_document" "developers_s3" {
     resources = [
       "arn:aws:s3:::*",
     ]
-
-    condition {
-      test     = "ForAnyValue:StringEquals"
-      variable = "s3:ExistingObjectTag/DataClassification"
-
-      values = [
-        "sensitive",
-        "confidential",
-      ]
-    }
-
-    condition {
-      test     = "ForAnyValue:StringNotEquals"
-      variable = "s3:ExistingObjectTag/DataClassification"
-
-      values = [
-        "pii",
-        "phi",
-        "customer-confidential",
-      ]
-    }
   }
 }
 
