@@ -4,7 +4,7 @@
 # Staging:    10.32.0.0/12
 # Sandbox:    10.48.0.0/12
 
-module "tools_main_cluster" {
+module "tools_east_cluster" {
   source = "./modules/eks_cluster"
   providers = {
     aws = aws.tools
@@ -34,7 +34,7 @@ module "prod_west_cluster" {
   cidr = "10.18.0.0/16"
 }
 
-module "staging_main_cluster" {
+module "staging_east_cluster" {
   source = "./modules/eks_cluster"
   providers = {
     aws = aws.non-prod

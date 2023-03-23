@@ -1,6 +1,6 @@
 data "aws_region" "current" {}
 
-output "aws_resource" {
+output "aws_resource_tags" {
   value = {
     Terraform          = "true"
     Environment        = var.env

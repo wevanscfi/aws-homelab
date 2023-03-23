@@ -31,7 +31,7 @@ module "eks" {
     default = {}
   }
 
-  tags = module.tags.aws_resource
+  tags = module.tags.aws_resource_tags
 }
 
 module "vpc_cni_irsa" {
@@ -49,7 +49,7 @@ module "vpc_cni_irsa" {
     }
   }
 
-  tags = module.tags.aws_resource
+  tags = module.tags.aws_resource_tags
 }
 
 module "karpenter_irsa" {
@@ -71,6 +71,6 @@ module "karpenter_irsa" {
     }
   }
 
-  tags = module.tags.aws_resource
+  tags = module.tags.aws_resource_tags
 }
 

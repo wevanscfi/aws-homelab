@@ -33,5 +33,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_aws_resource"></a> [aws\_resource](#output\_aws\_resource) | n/a |
+| <a name="output_aws_resource_tags"></a> [aws\_resource\_tags](#output\_aws\_resource\_tags) | n/a |
 | <a name="output_name_suffix"></a> [name\_suffix](#output\_name\_suffix) | n/a |
