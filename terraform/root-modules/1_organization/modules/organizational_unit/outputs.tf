@@ -4,7 +4,7 @@ output "org_units" {
 
 output "accounts" {
   value = {
-    for k, a in aws_organizations_account.core : k => { name : a.name, id : a.id, arn : a.arn }
+    for k, a in aws_organizations_account.this : k => { name : a.name, id : a.id, arn : a.arn }
   }
 }
 

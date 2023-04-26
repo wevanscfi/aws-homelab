@@ -8,7 +8,7 @@ resource "aws_organizations_organizational_unit" "this" {
   parent_id = var.org_id
 }
 
-resource "aws_organizations_account" "core" {
+resource "aws_organizations_account" "this" {
   for_each  = toset(var.accounts)
   name      = "${local.account_prefix}-${each.key}"
   email     = "admin+aws-${each.key}@${local.email_domain}"

@@ -51,12 +51,3 @@ provider "aws" {
     session_name = "Terraform"
   }
 }
-
-provider "aws" {
-  region = "us-east-2"
-  alias  = "sandbox"
-  assume_role {
-    role_arn     = "arn:aws:iam::611287861715:role/IACAccountAdmin"
-    session_name = "Terraform"
-  }
-}

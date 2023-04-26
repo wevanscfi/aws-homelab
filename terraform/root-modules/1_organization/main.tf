@@ -9,7 +9,8 @@ locals {
     ],
     platform = [
       "prod",
-      "non-prod"
+      "non-prod",
+      "sandbox"
     ],
   }
 }
